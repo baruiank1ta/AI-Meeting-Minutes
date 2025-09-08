@@ -6,6 +6,7 @@ Give it an audio recording, and it will transcribe, analyze, and generate a clea
 
 ✨ Features
 
+
 🎙️ Audio-to-Text: Upload .mp3, .wav, or .m4a files for accurate transcription.
 
 📝 Transcript Input: Already have notes? Just paste them in.
@@ -15,13 +16,14 @@ Give it an audio recording, and it will transcribe, analyze, and generate a clea
             Key discussion points
             Action items (with clear responsibilities)
 
-
 📄 Export: Download a polished PDF report instantly.
 
 🔒 Secure API Management: Keep tokens safe with Streamlit’s built-in secrets system.
 
 
+
 🛠️ Tech Stack
+
 
 Frontend/UI: Streamlit
 

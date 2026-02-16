@@ -15,12 +15,12 @@ if whisper_model is None:
     st.stop()
 
 # API Key Management
-api_key_input = None
-if st.secrets.get("HF_API_TOKEN"):
-    api_key_input = st.secrets["HF_API_TOKEN"]
-else:
-    st.markdown("Get your free Hugging Face access token from [your HF settings](https://huggingface.co/settings/tokens).")
-    api_key_input = st.text_input("Enter your Hugging Face Access Token:", type="password", help="To avoid entering this every time, create a file at .streamlit/secrets.toml with your key.")
+try:
+    api_key_input = st.secrets["GROQ_API_KEY"]
+except KeyError:
+    st.error("Groq API key not found. Please add it to Streamlit secrets.")
+    st.stop()
+
 
 # --- UI Tabs for different workflows ---
 tab1, tab2 = st.tabs(["**Transcribe Audio & Generate Minutes**", "**Generate Minutes from Text**"])

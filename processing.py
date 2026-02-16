@@ -55,7 +55,7 @@ def transcribe_audio(audio_file_path, whisper_model):
         st.error(f"Error during transcription: {e}")
         return None
 
- def generate_minutes_with_llm(api_key, transcript):
+ def generate_minutes_with_llm(api_key, transcript):6
     """
     Generates structured meeting minutes using Groq LLM (Llama 3).
     """

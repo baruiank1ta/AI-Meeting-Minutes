@@ -59,7 +59,7 @@ def generate_minutes_with_llm(api_key, transcript):
         client = Groq(api_key=api_key)
 
         response = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             messages=[
                 {
                     "role": "system",
@@ -89,3 +89,4 @@ Transcript:
 
     except Exception as e:
         return f"An error occurred with the Groq API: {str(e)}"
+

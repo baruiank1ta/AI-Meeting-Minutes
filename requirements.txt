@@ -1,5 +1,6 @@
 streamlit
-huggingface_hub
+groq
 faster-whisper
 torch
+
 fpdf2 

@@ -60,7 +60,7 @@ def generate_minutes_with_hf_llm(api_key, transcript):
     Analyzes the transcript using a powerful open-source model hosted on Hugging Face.
     """
     try:
-        client = InferenceClient(model="meta-llama/Meta-Llama-3-8B-Instruct", token=api_key)
+        client = InferenceClient(model="mistralai/Mistral-7B-Instruct-v0.2", token=api_key)
         prompt_messages = [{"role": "user", "content": f"""You are an expert assistant skilled at creating meeting minutes. Analyze the following transcript and provide a structured summary in Markdown with three sections: 'Executive Summary', 'Key Discussion Points', and 'Action Items'. For action items, assign the task to the correct person.
 
                 Here is the transcript:

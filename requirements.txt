@@ -1,0 +1,5 @@
+streamlit
+huggingface_hub
+faster-whisper
+torch
+fpdf2 

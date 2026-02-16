@@ -1,6 +1,6 @@
 
 import streamlit as st
-from huggingface_hub import InferenceClient
+from groq import Groq
 from faster_whisper import WhisperModel
 from fpdf import FPDF
 import time
@@ -55,20 +55,42 @@ def transcribe_audio(audio_file_path, whisper_model):
         st.error(f"Error during transcription: {e}")
         return None
 
-def generate_minutes_with_hf_llm(api_key, transcript):
+ def generate_minutes_with_llm(api_key, transcript):
     """
-    Analyzes the transcript using a powerful open-source model hosted on Hugging Face.
+    Generates structured meeting minutes using Groq LLM (Llama 3).
     """
-    try:
-        client = InferenceClient(model="mistralai/Mistral-7B-Instruct-v0.2", token=api_key)
-        prompt_messages = [{"role": "user", "content": f"""You are an expert assistant skilled at creating meeting minutes. Analyze the following transcript and provide a structured summary in Markdown with three sections: 'Executive Summary', 'Key Discussion Points', and 'Action Items'. For action items, assign the task to the correct person.
 
-                Here is the transcript:
-                ---
-                {transcript}
-                ---
-                """}]
-        response_stream = client.chat_completion(messages=prompt_messages, max_tokens=2048, stream=False)
-        return response_stream.choices[0].message.content
+    try:
+        client = Groq(api_key=api_key)
+
+        response = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a professional assistant skilled at generating structured meeting minutes."
+                },
+                {
+                    "role": "user",
+                    "content": f"""
+Generate well-structured meeting minutes from the transcript below.
+
+Include:
+- Key discussion points
+- Decisions made
+- Action items
+- Summary
+
+Transcript:
+{transcript}
+"""
+                }
+            ],
+            temperature=0.3,
+            max_tokens=1500,
+        )
+
+        return response.choices[0].message.content
+
     except Exception as e:
-        return f"An error occurred with the Hugging Face API: {str(e)}"
+        return f"An error occurred with the Groq API: {str(e)}"
